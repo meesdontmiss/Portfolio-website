@@ -86,7 +86,7 @@ const modes = {
   },
   motion: {
     label: "Creative Direction",
-    short: "Videography, editing, motion, 3D",
+    short: "Animation, illustration, editing, 3D",
     icon: Film,
     intro:
       "Creative direction for cinematic content systems: videography, editing, motion graphics, 3D campaign objects, and generative visual worlds.",
