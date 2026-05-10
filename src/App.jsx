@@ -47,7 +47,7 @@ import commonShiba from "../projects/3D/Common Shiba.png";
 import cosmicShiba from "../projects/3D/Cosmic Shiba.png";
 import freeRxBoy from "../projects/3D/FREE-RX-mailman-hoodie-spin-BOY0001-0110.gif";
 import freeRxGirl from "../projects/3D/FREE-RX-mailman-hoodie-spin-GIRL0001-0110.gif";
-import freelancePharmacy from "../projects/3D/FREELANCE PHARMACY WEBSITE ANIMATION_1.mp4";
+import freelancePharmacy from "../projects/3D/FREELANCE-PHARMACY-WEBSITE-ANIMATION video.mp4";
 import jamjamsJelly from "../projects/3D/JAMJAMS JELLY.mp4";
 import kellyFinal from "../projects/3D/KELLY FINAL.png";
 import martianConcept from "../projects/3D/life of a martian concept refined.png";
