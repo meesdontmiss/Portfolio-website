@@ -477,15 +477,17 @@ const signals = [
 ];
 
 const landingProjectTitlesList = [
+  "BILK Brand Objects",
+  "Bombo Worlds",
+  "Phone Home",
+  "Poster Worlds",
+  "BILK Promo",
+  "OBALLA Intro",
+  "Artist Visual Cuts",
+  "FREE RX Pharmacy",
+  "Animated Banner",
   "Commit to Ship",
   "Paco the Chicken",
-  "Disclaw Brand System",
-  "BILK Brand Objects",
-  "Poster Worlds",
-  "Artist Visual Cuts",
-  "Animated Banner",
-  "Bombo Worlds",
-  "FREE RX Pharmacy",
   "AmpliFi Logo System",
 ];
 
@@ -505,11 +507,11 @@ const heroDeckTitles = {
     "AmpliFi Social",
   ],
   motion: [
-    "AmpliFi Logo System",
-    "BILK Brand Objects",
-    "Phone Home",
-    "Artist Visual Cuts",
     "Bombo Worlds",
+    "BILK Promo",
+    "Phone Home",
+    "BILK Brand Objects",
+    "Poster Worlds",
   ],
 };
 
@@ -671,7 +673,7 @@ function MediaFrame({ project, compact = false, controls = false }) {
 }
 
 function App() {
-  const [activeMode, setActiveMode] = useState("systems");
+  const [activeMode, setActiveMode] = useState("motion");
   const [activeIndex, setActiveIndex] = useState(0);
 
   const deckProjects = useMemo(
@@ -819,7 +821,7 @@ function App() {
               onPointerLeave={resetWeightedPanel}
               onPointerMove={moveWeightedPanel}
               style={{ "--project-accent": project.accent }}
-              id={index === 0 ? "systems" : index === 5 ? "motion" : undefined}
+              id={project.title === "Commit to Ship" ? "systems" : project.title === "BILK Brand Objects" ? "motion" : undefined}
             >
               <MediaFrame project={project} compact controls />
               <span>{project.type}</span>
