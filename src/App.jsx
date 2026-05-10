@@ -418,8 +418,6 @@ const projects = [
       { src: bomboStore, kind: "image" },
       { src: chromeHeartsBombo, kind: "image" },
       { src: bomboLatcho, kind: "image" },
-      { src: commonShiba, kind: "image" },
-      { src: cosmicShiba, kind: "image" },
     ],
     kind: "image",
     accent: "#aefbff",
