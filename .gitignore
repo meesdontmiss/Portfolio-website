@@ -6,3 +6,5 @@ qa/
 qa-*.png
 .DS_Store
 Thumbs.db
+
+.vercel
