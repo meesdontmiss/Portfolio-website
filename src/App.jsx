@@ -478,14 +478,14 @@ const signals = [
 const landingProjectTitlesList = [
   "Commit to Ship",
   "Paco the Chicken",
-  "AmpliFi Social",
+  "Disclaw Brand System",
   "BILK Brand Objects",
-  "Artist Visual Cuts",
-  "Release Motion Pack",
-  "Trapatouille Edit",
   "Poster Worlds",
+  "Artist Visual Cuts",
+  "Animated Banner",
   "Bombo Worlds",
-  "BILK Promo",
+  "FREE RX Pharmacy",
+  "AmpliFi Logo System",
 ];
 
 const landingProjects = landingProjectTitlesList
@@ -499,8 +499,8 @@ const heroDeckTitles = {
   systems: [
     "Commit to Ship",
     "Paco the Chicken",
-    "Disclaw Interface",
-    "Milestone Demo",
+    "Disclaw Brand System",
+    "Commit to Ship Campaign",
     "AmpliFi Social",
   ],
   motion: [
