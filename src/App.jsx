@@ -597,10 +597,10 @@ function SignalCanvas({ activeMode }) {
         0,
         p.x * w,
         p.y * h,
-        Math.max(w, h) * 0.62
+        Math.max(w, h) * 0.155
       );
       glow.addColorStop(0, activeMode === "systems" ? "rgba(90, 232, 255, 0.22)" : "rgba(196, 255, 88, 0.18)");
-      glow.addColorStop(0.32, "rgba(245, 252, 255, 0.055)");
+      glow.addColorStop(0.28, "rgba(245, 252, 255, 0.055)");
       glow.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, w, h);
