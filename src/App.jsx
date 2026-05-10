@@ -946,10 +946,10 @@ function App() {
       >
         <div className="capability-copy">
           <MousePointer2 size={20} />
-          <h2>Designed as a living interface, structured for hiring decisions.</h2>
+          <h2>Creative technology for web, motion, and internet-native brands.</h2>
           <p>
-            The canvas carries the cinematic motion. The HTML keeps your work, resumes, contact paths,
-            and project details readable, searchable, and easy to scan.
+            I build polished web experiences, product systems, cinematic edits, 3D campaign assets,
+            and generative visuals for projects that need strong taste and fast execution.
           </p>
         </div>
         <div className="signal-list">
