@@ -75,6 +75,7 @@ import motionBannerPoster from "./generated-posters/animated-banner-poster.png";
 import freeRxBoyPoster from "./generated-posters/free-rx-boy-poster.png";
 import freeRxGirlPoster from "./generated-posters/free-rx-girl-poster.png";
 import wg8lPoster from "./generated-posters/wg8l-poster.png";
+import { createAsciiShader } from "./asciiShader.js";
 
 const modes = {
   systems: {
@@ -535,124 +536,28 @@ function resetWeightedPanel(event) {
 
 function SignalCanvas({ activeMode }) {
   const canvasRef = useRef(null);
-  const pointer = useRef({ x: 0.5, y: 0.42, tx: 0.5, ty: 0.42 });
-  const asciiPattern = useRef(null);
+  const shaderRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    let raf = 0;
-    let time = 0;
+    shaderRef.current = createAsciiShader({
+      canvas,
+      mode: activeMode === "systems" ? "signal" : "spiral",
+      palette: activeMode === "systems" ? ["#5fe7ff", "#bdff5a"] : ["#bdff5a", "#5fe7ff", "#f4f8f8"],
+      density: 0.92,
+      speed: 0.72,
+      seed: 95,
+    });
 
-    const buildAsciiPattern = (w, h) => {
-      const pattern = document.createElement("canvas");
-      const patternCtx = pattern.getContext("2d");
-      pattern.width = w;
-      pattern.height = h;
+    return () => shaderRef.current?.destroy();
+  }, []);
 
-      const accent = activeMode === "systems" ? "95, 231, 255" : "189, 255, 90";
-      const secondary = activeMode === "systems" ? "189, 255, 90" : "95, 231, 255";
-      const marks = ["+", "x", "/", "\\", "|", "-", "<", ">", "^", "[]", "::"];
-      const cellX = 26;
-      const cellY = 24;
+  useEffect(() => {
+    const shader = shaderRef.current;
+    if (!shader) return;
 
-      patternCtx.clearRect(0, 0, w, h);
-      patternCtx.font = "11px ui-monospace, SFMono-Regular, Consolas, monospace";
-      patternCtx.textBaseline = "middle";
-
-      for (let y = -cellY; y < h + cellY; y += cellY) {
-        for (let x = -cellX; x < w + cellX; x += cellX) {
-          const seed = Math.sin(x * 0.023 + y * 0.037) * Math.cos(x * 0.011 - y * 0.019);
-          const diagonal = Math.abs(((x + y * 0.72) % 260) - 130);
-          const orbit = Math.abs(Math.hypot(x - w * 0.7, y - h * 0.42) % 180 - 90);
-          const shouldDraw = seed > 0.42 || diagonal < 6 || orbit < 4;
-
-          if (!shouldDraw) continue;
-
-          const markIndex = Math.abs(Math.floor((seed + 1) * 11 + x * 0.03 + y * 0.02)) % marks.length;
-          const isStructure = diagonal < 6 || orbit < 4;
-          const alpha = isStructure ? 0.18 : 0.07 + Math.max(seed, 0) * 0.08;
-
-          patternCtx.fillStyle = `rgba(${isStructure ? accent : secondary}, ${alpha})`;
-          patternCtx.fillText(marks[markIndex], x, y);
-        }
-      }
-
-      patternCtx.strokeStyle = `rgba(${accent}, 0.055)`;
-      patternCtx.lineWidth = 1;
-      for (let i = 0; i < 7; i += 1) {
-        const offset = i * 210 - 80;
-        patternCtx.beginPath();
-        patternCtx.moveTo(offset, h);
-        patternCtx.lineTo(offset + h * 0.62, 0);
-        patternCtx.stroke();
-      }
-
-      return pattern;
-    };
-
-    const resize = () => {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-      canvas.width = Math.floor(window.innerWidth * ratio);
-      canvas.height = Math.floor(window.innerHeight * ratio);
-      canvas.style.width = `${window.innerWidth}px`;
-      canvas.style.height = `${window.innerHeight}px`;
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      asciiPattern.current = buildAsciiPattern(window.innerWidth, window.innerHeight);
-    };
-
-    const move = (event) => {
-      pointer.current.tx = event.clientX / window.innerWidth;
-      pointer.current.ty = event.clientY / window.innerHeight;
-    };
-
-    const draw = () => {
-      const w = window.innerWidth;
-      const h = window.innerHeight;
-      const p = pointer.current;
-      p.x += (p.tx - p.x) * 0.045;
-      p.y += (p.ty - p.y) * 0.045;
-      time += 0.008;
-
-      ctx.clearRect(0, 0, w, h);
-      const base = ctx.createLinearGradient(0, 0, w, h);
-      base.addColorStop(0, "#050708");
-      base.addColorStop(0.43, activeMode === "systems" ? "#071316" : "#0d1112");
-      base.addColorStop(1, "#020303");
-      ctx.fillStyle = base;
-      ctx.fillRect(0, 0, w, h);
-
-      if (asciiPattern.current) {
-        ctx.drawImage(asciiPattern.current, 0, 0);
-      }
-
-      const glow = ctx.createRadialGradient(
-        p.x * w,
-        p.y * h,
-        0,
-        p.x * w,
-        p.y * h,
-        Math.max(w, h) * 0.155
-      );
-      glow.addColorStop(0, activeMode === "systems" ? "rgba(90, 232, 255, 0.22)" : "rgba(196, 255, 88, 0.18)");
-      glow.addColorStop(0.28, "rgba(245, 252, 255, 0.055)");
-      glow.addColorStop(1, "rgba(0, 0, 0, 0)");
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, w, h);
-
-      raf = requestAnimationFrame(draw);
-    };
-
-    resize();
-    draw();
-    window.addEventListener("resize", resize);
-    window.addEventListener("pointermove", move);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("resize", resize);
-      window.removeEventListener("pointermove", move);
-    };
+    shader.setMode(activeMode === "systems" ? "signal" : "spiral");
+    shader.setPalette(activeMode === "systems" ? ["#5fe7ff", "#bdff5a"] : ["#bdff5a", "#5fe7ff", "#f4f8f8"]);
   }, [activeMode]);
 
   return <canvas className="signal-canvas" ref={canvasRef} aria-hidden="true" />;
