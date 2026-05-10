@@ -536,12 +536,60 @@ function resetWeightedPanel(event) {
 function SignalCanvas({ activeMode }) {
   const canvasRef = useRef(null);
   const pointer = useRef({ x: 0.5, y: 0.42, tx: 0.5, ty: 0.42 });
+  const asciiPattern = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     let raf = 0;
     let time = 0;
+
+    const buildAsciiPattern = (w, h) => {
+      const pattern = document.createElement("canvas");
+      const patternCtx = pattern.getContext("2d");
+      pattern.width = w;
+      pattern.height = h;
+
+      const accent = activeMode === "systems" ? "95, 231, 255" : "189, 255, 90";
+      const secondary = activeMode === "systems" ? "189, 255, 90" : "95, 231, 255";
+      const marks = ["+", "x", "/", "\\", "|", "-", "<", ">", "^", "[]", "::"];
+      const cellX = 26;
+      const cellY = 24;
+
+      patternCtx.clearRect(0, 0, w, h);
+      patternCtx.font = "11px ui-monospace, SFMono-Regular, Consolas, monospace";
+      patternCtx.textBaseline = "middle";
+
+      for (let y = -cellY; y < h + cellY; y += cellY) {
+        for (let x = -cellX; x < w + cellX; x += cellX) {
+          const seed = Math.sin(x * 0.023 + y * 0.037) * Math.cos(x * 0.011 - y * 0.019);
+          const diagonal = Math.abs(((x + y * 0.72) % 260) - 130);
+          const orbit = Math.abs(Math.hypot(x - w * 0.7, y - h * 0.42) % 180 - 90);
+          const shouldDraw = seed > 0.42 || diagonal < 6 || orbit < 4;
+
+          if (!shouldDraw) continue;
+
+          const markIndex = Math.abs(Math.floor((seed + 1) * 11 + x * 0.03 + y * 0.02)) % marks.length;
+          const isStructure = diagonal < 6 || orbit < 4;
+          const alpha = isStructure ? 0.18 : 0.07 + Math.max(seed, 0) * 0.08;
+
+          patternCtx.fillStyle = `rgba(${isStructure ? accent : secondary}, ${alpha})`;
+          patternCtx.fillText(marks[markIndex], x, y);
+        }
+      }
+
+      patternCtx.strokeStyle = `rgba(${accent}, 0.055)`;
+      patternCtx.lineWidth = 1;
+      for (let i = 0; i < 7; i += 1) {
+        const offset = i * 210 - 80;
+        patternCtx.beginPath();
+        patternCtx.moveTo(offset, h);
+        patternCtx.lineTo(offset + h * 0.62, 0);
+        patternCtx.stroke();
+      }
+
+      return pattern;
+    };
 
     const resize = () => {
       const ratio = Math.min(window.devicePixelRatio || 1, 2);
@@ -550,6 +598,7 @@ function SignalCanvas({ activeMode }) {
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      asciiPattern.current = buildAsciiPattern(window.innerWidth, window.innerHeight);
     };
 
     const move = (event) => {
@@ -573,22 +622,8 @@ function SignalCanvas({ activeMode }) {
       ctx.fillStyle = base;
       ctx.fillRect(0, 0, w, h);
 
-      for (let i = 0; i < 9; i += 1) {
-        const x = w * (0.12 + i * 0.12 + Math.sin(time * 1.3 + i) * 0.012);
-        const y = h * (0.16 + Math.cos(time + i * 0.9) * 0.08);
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.bezierCurveTo(
-          x + Math.sin(time + i) * 120,
-          h * 0.35,
-          x - Math.cos(time * 0.7 + i) * 160,
-          h * 0.7,
-          x + Math.sin(time * 1.5 + i) * 80,
-          h
-        );
-        ctx.strokeStyle = `rgba(${activeMode === "systems" ? "95, 231, 255" : "210, 255, 92"}, ${0.025 + i * 0.002})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
+      if (asciiPattern.current) {
+        ctx.drawImage(asciiPattern.current, 0, 0);
       }
 
       const glow = ctx.createRadialGradient(
@@ -604,17 +639,6 @@ function SignalCanvas({ activeMode }) {
       glow.addColorStop(1, "rgba(0, 0, 0, 0)");
       ctx.fillStyle = glow;
       ctx.fillRect(0, 0, w, h);
-
-      for (let i = 0; i < 34; i += 1) {
-        const drift = time * (0.18 + (i % 5) * 0.015);
-        const x = ((Math.sin(i * 12.93 + drift) * 0.5 + 0.5) * w + i * 41) % w;
-        const y = ((Math.cos(i * 7.17 + drift * 1.4) * 0.5 + 0.5) * h + i * 27) % h;
-        const r = 0.8 + (i % 4) * 0.6;
-        ctx.beginPath();
-        ctx.arc(x, y, r, 0, Math.PI * 2);
-        ctx.fillStyle = i % 3 === 0 ? "rgba(190, 255, 92, 0.32)" : "rgba(205, 247, 255, 0.22)";
-        ctx.fill();
-      }
 
       raf = requestAnimationFrame(draw);
     };
