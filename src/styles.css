@@ -365,6 +365,12 @@ a {
   position: relative;
 }
 
+.signal-stage::before {
+  background:
+    radial-gradient(circle at var(--mx) var(--my), rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.055) 7%, transparent 15%),
+    radial-gradient(circle at var(--mx) var(--my), color-mix(in srgb, var(--project-accent, var(--accent)), transparent 74%), transparent 13%);
+}
+
 .stage-orbit {
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 50%;
