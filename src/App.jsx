@@ -48,7 +48,6 @@ import cosmicShiba from "../projects/3D/Cosmic Shiba.png";
 import freeRxBoy from "../projects/3D/FREE-RX-mailman-hoodie-spin-BOY0001-0110.gif";
 import freeRxGirl from "../projects/3D/FREE-RX-mailman-hoodie-spin-GIRL0001-0110.gif";
 import freelancePharmacy from "../projects/3D/FREELANCE-PHARMACY-WEBSITE-ANIMATION video.mp4";
-import jamjamsJelly from "../projects/3D/JAMJAMS JELLY.mp4";
 import kellyFinal from "../projects/3D/KELLY FINAL.png";
 import martianConcept from "../projects/3D/life of a martian concept refined.png";
 import meesyElliot from "../projects/3D/meesy elliot .png";
@@ -255,6 +254,8 @@ const projects = [
       { src: bilkstache, kind: "image" },
       { src: bilkMachine, kind: "image" },
       { src: blantMixtape, kind: "image" },
+      { src: commonShiba, kind: "image" },
+      { src: cosmicShiba, kind: "image" },
     ],
     kind: "image",
     accent: "#eff7ff",
@@ -390,21 +391,6 @@ const projects = [
     ],
     kind: "image",
     accent: "#78e9ff",
-  },
-  {
-    title: "Shiba Character Set",
-    type: "3D CHARACTER",
-    mode: "motion",
-    summary:
-      "Collectible character variations and visual identity assets built for internet-native brand worlds.",
-    media: commonShiba,
-    gallery: [
-      { src: commonShiba, kind: "image" },
-      { src: cosmicShiba, kind: "image" },
-      { src: jamjamsJelly, kind: "video" },
-    ],
-    kind: "image",
-    accent: "#b9f6ff",
   },
   {
     title: "Bombo Worlds",
