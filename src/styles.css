@@ -762,6 +762,20 @@ a {
   margin: 0;
 }
 
+.project-link {
+  align-items: center;
+  color: #effdff;
+  display: inline-flex;
+  font-size: 0.76rem;
+  font-weight: 820;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.project-link svg {
+  color: var(--project-accent);
+}
+
 .capability-band {
   align-items: end;
   border-radius: 28px;

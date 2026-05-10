@@ -22,6 +22,14 @@ import disclawLogo from "../projects/WEB DESIGN/disclaw-logo.png";
 import disclawPromo from "../projects/WEB DESIGN/disclaw promo.png";
 import milestoneDemo from "../projects/WEB DESIGN/milestone demo.mp4";
 import siteOptimized from "../projects/WEB DESIGN/site optimized.gif";
+import pacoAbstractKing from "../projects/WEB DESIGN/paco/abstract-king.png";
+import pacoBrickByBrick from "../projects/WEB DESIGN/paco/brick-by-brick.png";
+import pacoDevCooking from "../projects/WEB DESIGN/paco/dev-cooking.png";
+import pacoFamilyPhoto from "../projects/WEB DESIGN/paco/family-photo-2.png";
+import pacoGreenLambo from "../projects/WEB DESIGN/paco/green-lambo-paco.png";
+import pacoHesBack from "../projects/WEB DESIGN/paco/hes-back.png";
+import pacoCooking from "../projects/WEB DESIGN/paco/PACO-COOKING.png";
+import pacoStunts from "../projects/WEB DESIGN/paco/paco-does-his-own-stunts.png";
 import amplifiBanner from "../projects/AMPLIFI/amplifi-banner.png";
 import amplifiShowcase from "../projects/AMPLIFI/AmpliFiShowcase.mp4";
 import amplifiSound from "../projects/AMPLIFI/1.26.26 amplifi vid sound design.mp4";
@@ -117,6 +125,27 @@ const projects = [
     ],
     kind: "video",
     accent: "#5fe7ff",
+  },
+  {
+    title: "Paco the Chicken",
+    type: "WEB DESIGN",
+    mode: "systems",
+    summary:
+      "Character-led web experience for pacothechicken.xyz with bold visual direction, meme-native storytelling, and campaign-ready site assets.",
+    media: pacoGreenLambo,
+    url: "https://www.pacothechicken.xyz",
+    gallery: [
+      { src: pacoGreenLambo, kind: "image" },
+      { src: pacoFamilyPhoto, kind: "image" },
+      { src: pacoDevCooking, kind: "image" },
+      { src: pacoCooking, kind: "image" },
+      { src: pacoHesBack, kind: "image" },
+      { src: pacoStunts, kind: "image" },
+      { src: pacoBrickByBrick, kind: "image" },
+      { src: pacoAbstractKing, kind: "image" },
+    ],
+    kind: "image",
+    accent: "#ffd94a",
   },
   {
     title: "Live Site Loop",
@@ -446,17 +475,22 @@ const signals = [
   "Video editing",
 ];
 
-const landingProjects = [
-  projects[0],
-  projects[6],
-  projects[8],
-  projects[12],
-  projects[14],
-  projects[15],
-  projects[17],
-  projects[19],
-  projects[21],
+const landingProjectTitlesList = [
+  "Commit to Ship",
+  "Paco the Chicken",
+  "AmpliFi Social",
+  "BILK Brand Objects",
+  "Artist Visual Cuts",
+  "Release Motion Pack",
+  "Trapatouille Edit",
+  "Poster Worlds",
+  "Bombo Worlds",
+  "BILK Promo",
 ];
+
+const landingProjects = landingProjectTitlesList
+  .map((title) => projects.find((project) => project.title === title))
+  .filter(Boolean);
 
 const landingProjectTitles = new Set(landingProjects.map((project) => project.title));
 const archiveProjects = projects.filter((project) => !landingProjectTitles.has(project.title));
@@ -464,10 +498,10 @@ const archiveProjects = projects.filter((project) => !landingProjectTitles.has(p
 const heroDeckTitles = {
   systems: [
     "Commit to Ship",
+    "Paco the Chicken",
     "Disclaw Interface",
     "Milestone Demo",
     "AmpliFi Social",
-    "BILK Brand Objects",
   ],
   motion: [
     "AmpliFi Logo System",
@@ -735,7 +769,7 @@ function App() {
       <header className="top-nav">
         <a className="brand" href="#home" aria-label="Misael De Jesus home">
           <span className="brand-mark">MDJ</span>
-          <span>Liquid Signal OS</span>
+          <span>Misael De Jesus</span>
         </a>
         <nav aria-label="Primary navigation">
           <a href="#work">Work</a>
@@ -806,10 +840,17 @@ function App() {
               <span>{activeProject.type}</span>
               <h2>{activeProject.title}</h2>
               <p>{activeProject.summary}</p>
-              <button type="button" className="glass-button small">
-                <CirclePlay size={16} />
-                Preview Signal
-              </button>
+              {activeProject.url ? (
+                <a className="glass-button small" href={activeProject.url} target="_blank" rel="noreferrer">
+                  <ArrowUpRight size={16} />
+                  Visit Site
+                </a>
+              ) : (
+                <button type="button" className="glass-button small">
+                  <CirclePlay size={16} />
+                  Preview Signal
+                </button>
+              )}
             </div>
           </div>
 
@@ -855,6 +896,12 @@ function App() {
               <span>{project.type}</span>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
+              {project.url ? (
+                <a className="project-link" href={project.url} target="_blank" rel="noreferrer">
+                  Visit Site
+                  <ArrowUpRight size={13} />
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
@@ -881,6 +928,12 @@ function App() {
               <span>{project.type}</span>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
+              {project.url ? (
+                <a className="project-link" href={project.url} target="_blank" rel="noreferrer">
+                  Visit Site
+                  <ArrowUpRight size={13} />
+                </a>
+              ) : null}
             </article>
           ))}
         </div>
