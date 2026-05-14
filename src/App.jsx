@@ -74,6 +74,22 @@ import motionBannerPoster from "./generated-posters/animated-banner-poster.png";
 import freeRxBoyPoster from "./generated-posters/free-rx-boy-poster.png";
 import freeRxGirlPoster from "./generated-posters/free-rx-girl-poster.png";
 import wg8lPoster from "./generated-posters/wg8l-poster.png";
+import allNightPoster from "./generated-posters/all-night-poster.jpg";
+import amplifiLogoAnimationPoster from "./generated-posters/amplifi-logo-animation-poster.jpg";
+import amplifiShowcasePoster from "./generated-posters/amplifi-showcase-poster.jpg";
+import amplifiSoundPoster from "./generated-posters/amplifi-sound-poster.jpg";
+import bilkPromoPoster from "./generated-posters/bilk-promo-poster.jpg";
+import disclawDemoPoster from "./generated-posters/disclaw-demo-poster.jpg";
+import farrisPoster from "./generated-posters/farris-poster.jpg";
+import freelancePharmacyPoster from "./generated-posters/freelance-pharmacy-poster.jpg";
+import gangPromoPoster from "./generated-posters/gang-promo-poster.jpg";
+import iCantPretendPoster from "./generated-posters/i-cant-pretend-poster.jpg";
+import milestoneDemoPoster from "./generated-posters/milestone-demo-poster.jpg";
+import oballaIntroPoster from "./generated-posters/oballa-intro-poster.jpg";
+import phoneSnippetPoster from "./generated-posters/phone-snippet-poster.jpg";
+import rooftopDiePoster from "./generated-posters/rooftop-die-poster.jpg";
+import sachaLogoSpinPoster from "./generated-posters/sacha-logo-spin-poster.jpg";
+import trapatouillePoster from "./generated-posters/trapatouille-poster.jpg";
 import { createAsciiShader } from "./asciiShader.js";
 
 const modes = {
@@ -117,8 +133,9 @@ const projects = [
       "Polished Web3-facing brand and interface work with animated product presentation and campaign-ready assets.",
     media: disclawDemo,
     fallback: disclawBanner,
+    poster: disclawDemoPoster,
     gallery: [
-      { src: disclawDemo, kind: "video", fallback: disclawBanner },
+      { src: disclawDemo, kind: "video", fallback: disclawBanner, poster: disclawDemoPoster },
       { src: disclawBanner, kind: "image" },
       { src: disclawPromo, kind: "image" },
       { src: disclawLogo, kind: "image" },
@@ -157,7 +174,7 @@ const projects = [
     poster: siteOptimizedPoster,
     gallery: [
       { src: siteOptimized, kind: "image", poster: siteOptimizedPoster, animated: true },
-      { src: milestoneDemo, kind: "video" },
+      { src: milestoneDemo, kind: "video", poster: milestoneDemoPoster },
       { src: ctsPromoAlt, kind: "image" },
     ],
     kind: "image",
@@ -190,7 +207,7 @@ const projects = [
       { src: disclawPromo, kind: "image" },
       { src: disclawBanner, kind: "image" },
       { src: disclawLogo, kind: "image" },
-      { src: disclawDemo, kind: "video", fallback: disclawBanner },
+      { src: disclawDemo, kind: "video", fallback: disclawBanner, poster: disclawDemoPoster },
     ],
     kind: "image",
     accent: "#69edff",
@@ -202,6 +219,7 @@ const projects = [
     summary:
       "Long-form product demo showing system logic, interaction states, and launchable MVP communication.",
     media: milestoneDemo,
+    poster: milestoneDemoPoster,
     kind: "video",
     accent: "#f4f7ff",
   },
@@ -213,12 +231,13 @@ const projects = [
       "Creator-holder reward system with social account linking, verified holdings, leaderboard mechanics, and payout transparency.",
     media: amplifiShowcase,
     fallback: amplifiBanner,
+    poster: amplifiShowcasePoster,
     gallery: [
-      { src: amplifiShowcase, kind: "video", fallback: amplifiBanner },
+      { src: amplifiShowcase, kind: "video", fallback: amplifiBanner, poster: amplifiShowcasePoster },
       { src: amplifiBanner, kind: "image" },
       { src: amplifiGreenPfp, kind: "image" },
       { src: amplifiGreen, kind: "image" },
-      { src: amplifiSound, kind: "video", fallback: amplifiBanner },
+      { src: amplifiSound, kind: "video", fallback: amplifiBanner, poster: amplifiSoundPoster },
     ],
     kind: "video",
     accent: "#b8ff6a",
@@ -231,9 +250,10 @@ const projects = [
       "Mixed-media identity motion and sound design for a Web3 social-finance product world.",
     media: amplifiSound,
     fallback: amplifiBanner,
+    poster: amplifiSoundPoster,
     gallery: [
-      { src: amplifiSound, kind: "video", fallback: amplifiBanner },
-      { src: amplifiLogoAnimation, kind: "video", fallback: amplifiBanner },
+      { src: amplifiSound, kind: "video", fallback: amplifiBanner, poster: amplifiSoundPoster },
+      { src: amplifiLogoAnimation, kind: "video", fallback: amplifiBanner, poster: amplifiLogoAnimationPoster },
       { src: amplifiBanner, kind: "image" },
       { src: amplifiGreenPfp, kind: "image" },
     ],
@@ -284,12 +304,13 @@ const projects = [
       "Vertical 3D motion snippet with object animation, campaign rhythm, and social-ready formatting.",
     media: phoneSnippet,
     gallery: [
-      { src: phoneSnippet, kind: "video" },
+      { src: phoneSnippet, kind: "video", poster: phoneSnippetPoster },
       { src: meesyPhoneHome, kind: "image" },
       { src: popstarLifestyle, kind: "image" },
       { src: martianConcept, kind: "image" },
     ],
     kind: "video",
+    poster: phoneSnippetPoster,
     accent: "#ffdf85",
   },
   {
@@ -312,14 +333,15 @@ const projects = [
       "Music-first pacing, stylized cutdowns, visual rhythm, color, overlays, and social-native export formats.",
     media: allNight,
     gallery: [
-      { src: allNight, kind: "video" },
-      { src: farris, kind: "video" },
-      { src: iCantPretend, kind: "video" },
-      { src: rooftopDie, kind: "video" },
-      { src: sachaLogoSpin, kind: "video" },
+      { src: allNight, kind: "video", poster: allNightPoster },
+      { src: farris, kind: "video", poster: farrisPoster },
+      { src: iCantPretend, kind: "video", poster: iCantPretendPoster },
+      { src: rooftopDie, kind: "video", poster: rooftopDiePoster },
+      { src: sachaLogoSpin, kind: "video", poster: sachaLogoSpinPoster },
       { src: motionBanner, kind: "image", poster: motionBannerPoster, animated: true },
     ],
     kind: "video",
+    poster: allNightPoster,
     accent: "#ff7d63",
   },
   {
@@ -330,6 +352,7 @@ const projects = [
       "Short-form animated music visual with polished timing, graphic treatments, and replayable framing.",
     media: farris,
     kind: "video",
+    poster: farrisPoster,
     accent: "#f6f6f0",
   },
   {
@@ -340,12 +363,13 @@ const projects = [
       "Short-loop motion assets for artist releases, logo spins, square visuals, and music-first promotional rhythm.",
     media: sachaLogoSpin,
     gallery: [
-      { src: sachaLogoSpin, kind: "video" },
-      { src: iCantPretend, kind: "video" },
-      { src: rooftopDie, kind: "video" },
+      { src: sachaLogoSpin, kind: "video", poster: sachaLogoSpinPoster },
+      { src: iCantPretend, kind: "video", poster: iCantPretendPoster },
+      { src: rooftopDie, kind: "video", poster: rooftopDiePoster },
       { src: motionBanner, kind: "image", poster: motionBannerPoster, animated: true },
     ],
     kind: "video",
+    poster: sachaLogoSpinPoster,
     accent: "#8ef4ff",
   },
   {
@@ -356,6 +380,7 @@ const projects = [
       "High-resolution edit sample focused on kinetic pacing, timing, and culture-first visual energy.",
     media: trapatouille,
     kind: "video",
+    poster: trapatouillePoster,
     accent: "#caffef",
   },
   {
@@ -366,12 +391,13 @@ const projects = [
       "Freelance pharmacy web animation and hoodie spin assets built as a compact campaign world.",
     media: freelancePharmacy,
     gallery: [
-      { src: freelancePharmacy, kind: "video" },
+      { src: freelancePharmacy, kind: "video", poster: freelancePharmacyPoster },
       { src: freeRxBoy, kind: "image", poster: freeRxBoyPoster, animated: true },
       { src: freeRxGirl, kind: "image", poster: freeRxGirlPoster, animated: true },
       { src: wg8l, kind: "image", poster: wg8lPoster, animated: true },
     ],
     kind: "video",
+    poster: freelancePharmacyPoster,
     accent: "#f1ffee",
   },
   {
@@ -416,6 +442,7 @@ const projects = [
       "Generative intro motion built around surreal scene generation, timing, and post-production treatment.",
     media: oballaIntro,
     kind: "video",
+    poster: oballaIntroPoster,
     accent: "#f5fbff",
   },
   {
@@ -426,6 +453,7 @@ const projects = [
       "Generative promo system combining surreal visuals, brand direction, timing, and post-production finish.",
     media: bilkPromo,
     kind: "video",
+    poster: bilkPromoPoster,
     accent: "#f7f7f7",
   },
   {
@@ -436,6 +464,7 @@ const projects = [
       "Generative campaign video built for fast culture signal, social velocity, and surreal visual identity.",
     media: gangPromo,
     kind: "video",
+    poster: gangPromoPoster,
     accent: "#ddff69",
   },
   {
@@ -520,6 +549,13 @@ function resetWeightedPanel(event) {
   panel.style.setProperty("--ry", "0deg");
 }
 
+function supportsHoverPreview() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches
+  );
+}
+
 function SignalCanvas({ activeMode }) {
   const canvasRef = useRef(null);
   const shaderRef = useRef(null);
@@ -561,14 +597,17 @@ function MediaFrame({ project, compact = false, controls = false }) {
   ];
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [isActive, setIsActive] = useState(false);
+  const [isHoverPreview, setIsHoverPreview] = useState(false);
   const videoRef = useRef(null);
   const activeMedia = gallery[galleryIndex % gallery.length];
   const hasGallery = gallery.length > 1;
   const displaySrc = activeMedia.animated && !isActive && activeMedia.poster ? activeMedia.poster : activeMedia.src;
+  const videoPoster = activeMedia.poster || activeMedia.fallback || project.poster || project.fallback;
 
   useEffect(() => {
     setGalleryIndex(0);
     setIsActive(false);
+    setIsHoverPreview(false);
   }, [project.title]);
 
   useEffect(() => {
@@ -583,7 +622,7 @@ function MediaFrame({ project, compact = false, controls = false }) {
     const video = videoRef.current;
     if (!video) return;
 
-    if (isActive) {
+    if (isActive && isHoverPreview) {
       const playRequest = video.play();
       if (playRequest) {
         playRequest.catch(() => {});
@@ -591,9 +630,11 @@ function MediaFrame({ project, compact = false, controls = false }) {
       return;
     }
 
-    video.pause();
-    video.currentTime = 0;
-  }, [activeMedia.src, isActive]);
+    if (!isActive && supportsHoverPreview()) {
+      video.pause();
+      video.currentTime = 0;
+    }
+  }, [activeMedia.src, isActive, isHoverPreview]);
 
   const changeSlide = (direction, event) => {
     event.stopPropagation();
@@ -602,26 +643,50 @@ function MediaFrame({ project, compact = false, controls = false }) {
 
   const showControls = hasGallery && (!compact || controls);
 
+  const isInteractive = !compact || controls;
+  const activateFromHover = () => {
+    if (!supportsHoverPreview()) return;
+    setIsHoverPreview(true);
+    setIsActive(true);
+  };
+  const deactivateFromHover = () => {
+    if (!supportsHoverPreview()) return;
+    setIsHoverPreview(false);
+    setIsActive(false);
+  };
+  const activateFromInteraction = () => {
+    setIsHoverPreview(false);
+    setIsActive(true);
+  };
+  const deactivateFromBlur = (event) => {
+    if (event.currentTarget.contains(event.relatedTarget)) return;
+    setIsHoverPreview(false);
+    setIsActive(false);
+  };
+
   return (
     <div
       className={`media-frame ${compact ? "media-frame--compact" : ""}`}
-      onBlur={() => setIsActive(false)}
-      onFocus={() => setIsActive(true)}
-      onPointerEnter={() => setIsActive(true)}
-      onPointerLeave={() => setIsActive(false)}
+      onBlur={isInteractive ? deactivateFromBlur : undefined}
+      onClick={isInteractive ? activateFromInteraction : undefined}
+      onFocus={isInteractive ? activateFromInteraction : undefined}
+      onPointerDownCapture={isInteractive ? activateFromInteraction : undefined}
+      onPointerEnter={activateFromHover}
+      onPointerLeave={deactivateFromHover}
       style={{ "--project-accent": project.accent }}
-      tabIndex={0}
+      tabIndex={isInteractive ? 0 : -1}
     >
       {activeMedia.kind === "video" ? (
         <video
           ref={videoRef}
           key={activeMedia.src}
           src={activeMedia.src}
-          poster={activeMedia.fallback || project.fallback}
+          poster={videoPoster}
           controls
-          muted
+          muted={isHoverPreview}
+          onPointerDown={isInteractive ? activateFromInteraction : undefined}
           playsInline
-          preload="metadata"
+          preload={isActive ? "metadata" : "none"}
         />
       ) : (
         <img key={displaySrc} src={displaySrc} alt="" loading="lazy" />
