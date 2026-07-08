@@ -1,22 +1,23 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Braces,
   ChevronLeft,
   ChevronRight,
-  CirclePlay,
   Download,
   Film,
   Mail,
+  Maximize2,
   MousePointer2,
   Sparkles,
+  X,
 } from "lucide-react";
 
 import productResume from "../Misael_De_Jesus_Resume.pdf";
 import videoResume from "../Misael_De_Jesus_Videography_Editing_Resume.pdf";
 import ctsPromo from "../projects/WEB DESIGN/COMMIT-TO-SHIP-PROMO-1.png";
 import ctsPromoAlt from "../projects/WEB DESIGN/CTS-PROMO.png";
-import disclawBanner from "../projects/WEB DESIGN/disclaw-banner.png";
+import disclawBanner from "./web-media/disclaw-banner.jpg";
 import disclawDemo from "../projects/WEB DESIGN/disclaw demo.mp4";
 import disclawLogo from "../projects/WEB DESIGN/disclaw-logo.png";
 import disclawPromo from "../projects/WEB DESIGN/disclaw promo.png";
@@ -27,7 +28,7 @@ import pacoBrickByBrick from "../projects/WEB DESIGN/paco/brick-by-brick.png";
 import pacoDevCooking from "../projects/WEB DESIGN/paco/dev-cooking.png";
 import pacoFamilyPhoto from "../projects/WEB DESIGN/paco/family-photo-2.png";
 import pacoGreenLambo from "../projects/WEB DESIGN/paco/green-lambo-paco.png";
-import pacoHesBack from "../projects/WEB DESIGN/paco/hes-back.png";
+import pacoHesBack from "./web-media/hes-back.jpg";
 import pacoCooking from "../projects/WEB DESIGN/paco/PACO-COOKING.png";
 import pacoStunts from "../projects/WEB DESIGN/paco/paco-does-his-own-stunts.png";
 import amplifiBanner from "../projects/AMPLIFI/amplifi-banner.png";
@@ -36,23 +37,23 @@ import amplifiSound from "../projects/AMPLIFI/1.26.26 amplifi vid sound design.m
 import amplifiLogoAnimation from "../projects/AMPLIFI/Amplifi Logo Animation (mixed media) w Audio.mp4";
 import amplifiGreen from "../projects/AMPLIFI/green-n-yellow.png";
 import amplifiGreenPfp from "../projects/AMPLIFI/green-n-yellowPFP.png";
-import tenGallonBarrel from "../projects/3D/10 gallon barrel.png";
+import tenGallonBarrel from "./web-media/10 gallon barrel.jpg";
 import bilkGallon from "../projects/3D/bilk gallon.png";
 import bilkBanner from "../projects/3D/BILKonBonk-Banner.png";
-import bilkstache from "../projects/3D/bilkstache.png";
-import bilkMachine from "../projects/3D/bilk_machine_pro.png";
-import blantMixtape from "../projects/3D/BLANT MIXTAPE.png";
-import cherryBlossom from "../projects/3D/cherry blossom tree.png";
-import commonShiba from "../projects/3D/Common Shiba.png";
-import cosmicShiba from "../projects/3D/Cosmic Shiba.png";
+import bilkstache from "./web-media/bilkstache.jpg";
+import bilkMachine from "./web-media/bilk_machine_pro.jpg";
+import blantMixtape from "./web-media/BLANT MIXTAPE.jpg";
+import cherryBlossom from "./web-media/cherry blossom tree.jpg";
+import commonShiba from "./web-media/Common Shiba.jpg";
+import cosmicShiba from "./web-media/Cosmic Shiba.jpg";
 import freeRxBoy from "../projects/3D/FREE-RX-mailman-hoodie-spin-BOY0001-0110.gif";
 import freeRxGirl from "../projects/3D/FREE-RX-mailman-hoodie-spin-GIRL0001-0110.gif";
 import freelancePharmacy from "../projects/3D/FREELANCE-PHARMACY-WEBSITE-ANIMATION video.mp4";
-import kellyFinal from "../projects/3D/KELLY FINAL.png";
-import martianConcept from "../projects/3D/life of a martian concept refined.png";
-import meesyElliot from "../projects/3D/meesy elliot .png";
-import meesyPhoneHome from "../projects/3D/MEESY PHONE HOME.png";
-import popstarLifestyle from "../projects/3D/POPSTAR LIFESTYLE.png";
+import kellyFinal from "./web-media/KELLY FINAL.jpg";
+import martianConcept from "./web-media/life of a martian concept refined.jpg";
+import meesyElliot from "./web-media/meesy elliot.jpg";
+import meesyPhoneHome from "./web-media/MEESY PHONE HOME.jpg";
+import popstarLifestyle from "./web-media/POPSTAR LIFESTYLE.jpg";
 import phoneSnippet from "../projects/3D/watch this phone snippet.mp4";
 import wg8l from "../projects/3D/WG8L.gif";
 import motionBanner from "../projects/motion graphics/animated-banner-optimized.gif";
@@ -62,10 +63,10 @@ import iCantPretend from "../projects/motion graphics/i cant pretend try 2.mp4";
 import rooftopDie from "../projects/motion graphics/ROOFTOP DIE ON TOP 2_1.mp4";
 import sachaLogoSpin from "../projects/motion graphics/sacha logo SPIN_1.mp4";
 import trapatouille from "../projects/editing/mees! trapatouille.mp4";
-import bomboStore from "../projects/AI generative work/bombo at the store.png";
-import bomboLatcho from "../projects/AI generative work/bombo latcho meme.png";
-import bomboWild from "../projects/AI generative work/bombo in the wild.png";
-import chromeHeartsBombo from "../projects/AI generative work/chrome hearts bombo.png";
+import bomboStore from "./web-media/bombo at the store.jpg";
+import bomboLatcho from "./web-media/bombo latcho meme.jpg";
+import bomboWild from "./web-media/bombo in the wild.jpg";
+import chromeHeartsBombo from "./web-media/chrome hearts bombo.jpg";
 import bilkPromo from "../projects/AI generative work/BILK promo.mp4";
 import oballaIntro from "../projects/AI generative work/OBALLA intro.mp4";
 import gangPromo from "../projects/AI generative work/$GANG promo.mp4";
@@ -490,18 +491,18 @@ const signals = [
 ];
 
 const landingProjectTitlesList = [
+  "Paco the Chicken",
+  "Commit to Ship",
+  "Disclaw Interface",
+  "AmpliFi Social",
   "BILK Brand Objects",
   "Bombo Worlds",
-  "Phone Home",
   "Poster Worlds",
   "BILK Promo",
-  "OBALLA Intro",
   "Artist Visual Cuts",
   "FREE RX Pharmacy",
-  "Animated Banner",
-  "Commit to Ship",
-  "Paco the Chicken",
   "AmpliFi Logo System",
+  "OBALLA Intro",
 ];
 
 const landingProjects = landingProjectTitlesList
@@ -513,11 +514,11 @@ const archiveProjects = projects.filter((project) => !landingProjectTitles.has(p
 
 const heroDeckTitles = {
   systems: [
-    "Commit to Ship",
     "Paco the Chicken",
-    "Disclaw Brand System",
-    "Commit to Ship Campaign",
+    "Commit to Ship",
+    "Disclaw Interface",
     "AmpliFi Social",
+    "Commit to Ship Campaign",
   ],
   motion: [
     "Bombo Worlds",
@@ -528,7 +529,15 @@ const heroDeckTitles = {
   ],
 };
 
+function prefersReducedMotion() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
+}
+
 function moveWeightedPanel(event) {
+  if (!supportsHoverPreview() || prefersReducedMotion()) return;
   const panel = event.currentTarget;
   const rect = panel.getBoundingClientRect();
   const x = (event.clientX - rect.left) / rect.width;
@@ -585,7 +594,7 @@ function SignalCanvas({ activeMode }) {
   return <canvas className="signal-canvas" ref={canvasRef} aria-hidden="true" />;
 }
 
-function MediaFrame({ project, compact = false, controls = false }) {
+function MediaFrame({ project, compact = false, controls = false, onExpand, priority = false }) {
   const gallery = project.gallery || [
     {
       src: project.media,
@@ -637,8 +646,22 @@ function MediaFrame({ project, compact = false, controls = false }) {
   }, [activeMedia.src, isActive, isHoverPreview]);
 
   const changeSlide = (direction, event) => {
-    event.stopPropagation();
+    event?.stopPropagation();
     setGalleryIndex((current) => (current + direction + gallery.length) % gallery.length);
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.target !== event.currentTarget) return;
+    if (hasGallery && event.key === "ArrowLeft") {
+      event.preventDefault();
+      changeSlide(-1);
+    } else if (hasGallery && event.key === "ArrowRight") {
+      event.preventDefault();
+      changeSlide(1);
+    } else if (onExpand && (event.key === "Enter" || event.key === " ")) {
+      event.preventDefault();
+      onExpand(galleryIndex);
+    }
   };
 
   const showControls = hasGallery && (!compact || controls);
@@ -670,6 +693,7 @@ function MediaFrame({ project, compact = false, controls = false }) {
       onBlur={isInteractive ? deactivateFromBlur : undefined}
       onClick={isInteractive ? activateFromInteraction : undefined}
       onFocus={isInteractive ? activateFromInteraction : undefined}
+      onKeyDown={isInteractive ? handleKeyDown : undefined}
       onPointerDownCapture={isInteractive ? activateFromInteraction : undefined}
       onPointerEnter={activateFromHover}
       onPointerLeave={deactivateFromHover}
@@ -689,8 +713,27 @@ function MediaFrame({ project, compact = false, controls = false }) {
           preload={isActive ? "metadata" : "none"}
         />
       ) : (
-        <img key={displaySrc} src={displaySrc} alt="" loading="lazy" />
+        <img
+          key={displaySrc}
+          src={displaySrc}
+          alt={project.title}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : undefined}
+        />
       )}
+      {onExpand ? (
+        <button
+          type="button"
+          className="expand-button"
+          onClick={(event) => {
+            event.stopPropagation();
+            onExpand(galleryIndex);
+          }}
+          aria-label={`View ${project.title} fullscreen`}
+        >
+          <Maximize2 size={compact ? 12 : 15} />
+        </button>
+      ) : null}
       {hasGallery ? (
         <>
           <div className="gallery-count">
@@ -721,9 +764,153 @@ function MediaFrame({ project, compact = false, controls = false }) {
   );
 }
 
+function Lightbox({ project, initialIndex = 0, onClose }) {
+  const gallery = project.gallery || [
+    {
+      src: project.media,
+      kind: project.kind,
+      fallback: project.fallback,
+      poster: project.poster,
+      animated: project.animated,
+    },
+  ];
+  const [index, setIndex] = useState(initialIndex % gallery.length);
+  const closeButtonRef = useRef(null);
+  const media = gallery[index];
+  const galleryLength = gallery.length;
+
+  const changeSlide = useCallback((direction) => {
+    setIndex((current) => (current + direction + galleryLength) % galleryLength);
+  }, [galleryLength]);
+
+  useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        onClose();
+      } else if (event.key === "ArrowLeft") {
+        changeSlide(-1);
+      } else if (event.key === "ArrowRight") {
+        changeSlide(1);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [changeSlide, onClose]);
+
+  return (
+    <div
+      className="lightbox"
+      role="dialog"
+      aria-modal="true"
+      aria-label={`${project.title} media viewer`}
+      onClick={onClose}
+    >
+      <div
+        className="lightbox-inner"
+        onClick={(event) => event.stopPropagation()}
+        style={{ "--project-accent": project.accent }}
+      >
+        <button
+          ref={closeButtonRef}
+          type="button"
+          className="lightbox-close"
+          onClick={onClose}
+          aria-label="Close viewer"
+        >
+          <X size={20} />
+        </button>
+        <div className="lightbox-media">
+          {media.kind === "video" ? (
+            <video
+              key={media.src}
+              src={media.src}
+              poster={media.poster || media.fallback}
+              controls
+              autoPlay
+              playsInline
+            />
+          ) : (
+            <img key={media.src} src={media.src} alt={project.title} />
+          )}
+        </div>
+        <div className="lightbox-caption">
+          <div>
+            <span>{project.type}</span>
+            <h3>{project.title}</h3>
+            <p>{project.summary}</p>
+            {project.url ? (
+              <a className="glass-button small" href={project.url} target="_blank" rel="noreferrer">
+                <ArrowUpRight size={16} />
+                Visit Site
+              </a>
+            ) : null}
+          </div>
+          {galleryLength > 1 ? (
+            <div className="lightbox-nav">
+              <button type="button" onClick={() => changeSlide(-1)} aria-label="Previous media">
+                <ChevronLeft size={20} />
+              </button>
+              <span>
+                {index + 1} / {galleryLength}
+              </span>
+              <button type="button" onClick={() => changeSlide(1)} aria-label="Next media">
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function App() {
-  const [activeMode, setActiveMode] = useState("motion");
+  const [activeMode, setActiveMode] = useState("systems");
   const [activeIndex, setActiveIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(null);
+
+  const openLightbox = useCallback((project, index = 0) => {
+    setLightbox({ project, index });
+  }, []);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return undefined;
+    const tiles = document.querySelectorAll(".project-tile");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-revealed");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+    );
+    tiles.forEach((tile) => {
+      tile.classList.add("will-reveal");
+      observer.observe(tile);
+    });
+    // Safety net: never leave tiles hidden if the observer can't fire
+    // (background tab, embedded webview, etc.).
+    const fallback = window.setTimeout(() => {
+      tiles.forEach((tile) => tile.classList.add("is-revealed"));
+      observer.disconnect();
+    }, 3500);
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
+  }, []);
 
   const deckProjects = useMemo(
     () =>
@@ -815,7 +1002,11 @@ function App() {
           </div>
 
           <div className="selected-project">
-            <MediaFrame project={activeProject} />
+            <MediaFrame
+              project={activeProject}
+              onExpand={(index) => openLightbox(activeProject, index)}
+              priority
+            />
             <div className="project-dossier">
               <span>{activeProject.type}</span>
               <h2>{activeProject.title}</h2>
@@ -826,8 +1017,12 @@ function App() {
                   Visit Site
                 </a>
               ) : (
-                <button type="button" className="glass-button small">
-                  <CirclePlay size={16} />
+                <button
+                  type="button"
+                  className="glass-button small"
+                  onClick={() => openLightbox(activeProject)}
+                >
+                  <Maximize2 size={16} />
                   Preview Signal
                 </button>
               )}
@@ -872,7 +1067,12 @@ function App() {
               style={{ "--project-accent": project.accent }}
               id={project.title === "Commit to Ship" ? "systems" : project.title === "BILK Brand Objects" ? "motion" : undefined}
             >
-              <MediaFrame project={project} compact controls />
+              <MediaFrame
+                project={project}
+                compact
+                controls
+                onExpand={(index) => openLightbox(project, index)}
+              />
               <span>{project.type}</span>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
@@ -904,7 +1104,12 @@ function App() {
               onPointerMove={moveWeightedPanel}
               style={{ "--project-accent": project.accent }}
             >
-              <MediaFrame project={project} compact controls />
+              <MediaFrame
+                project={project}
+                compact
+                controls
+                onExpand={(index) => openLightbox(project, index)}
+              />
               <span>{project.type}</span>
               <h3>{project.title}</h3>
               <p>{project.summary}</p>
@@ -955,6 +1160,14 @@ function App() {
           <ArrowUpRight size={16} />
         </a>
       </footer>
+
+      {lightbox ? (
+        <Lightbox
+          project={lightbox.project}
+          initialIndex={lightbox.index}
+          onClose={closeLightbox}
+        />
+      ) : null}
     </main>
   );
 }

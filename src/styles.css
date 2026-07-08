@@ -21,12 +21,28 @@
   --shadow: 0 30px 90px rgba(0, 0, 0, 0.58);
 }
 
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #5fe7ff;
+}
+
+@property --accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(95, 231, 255, 0.2);
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+}
+
+[id] {
+  scroll-margin-top: 90px;
 }
 
 body {
@@ -54,7 +70,9 @@ a {
   position: relative;
   isolation: isolate;
   padding: 22px clamp(18px, 4vw, 56px) 44px;
-  transition: --accent 250ms ease;
+  transition:
+    --accent 250ms ease,
+    --accent-soft 250ms ease;
   --accent: var(--cyan);
   --accent-soft: rgba(95, 231, 255, 0.2);
 }
@@ -475,9 +493,57 @@ a {
 
 .gallery-count,
 .gallery-controls,
-.gallery-dots {
+.gallery-dots,
+.expand-button {
   position: absolute;
   z-index: 4;
+}
+
+.expand-button {
+  align-items: center;
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  background: rgba(4, 12, 13, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #eaf8fa;
+  cursor: pointer;
+  display: inline-flex;
+  height: 34px;
+  justify-content: center;
+  left: 12px;
+  opacity: 0;
+  padding: 0;
+  top: 12px;
+  transition:
+    border-color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+  width: 34px;
+}
+
+.media-frame:hover .expand-button,
+.media-frame:focus-within .expand-button,
+.expand-button:focus-visible {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .expand-button {
+    opacity: 1;
+  }
+}
+
+.expand-button:hover {
+  border-color: color-mix(in srgb, var(--project-accent), white 15%);
+  transform: translateY(-1px);
+}
+
+.media-frame--compact .expand-button {
+  height: 26px;
+  left: 7px;
+  top: 7px;
+  width: 26px;
 }
 
 .gallery-count {
@@ -841,6 +907,187 @@ a {
   margin: 14px 0 0;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .project-tile.will-reveal {
+    opacity: 0;
+    transition:
+      border-color 180ms ease,
+      box-shadow 180ms ease,
+      transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      opacity 700ms ease;
+  }
+
+  .project-tile.is-revealed {
+    opacity: 1;
+  }
+}
+
+.lightbox {
+  align-items: center;
+  backdrop-filter: blur(18px) saturate(1.2);
+  -webkit-backdrop-filter: blur(18px) saturate(1.2);
+  background: rgba(3, 6, 7, 0.82);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: clamp(14px, 3vw, 40px);
+  position: fixed;
+  z-index: 60;
+  animation: lightboxFade 220ms ease;
+}
+
+@keyframes lightboxFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.lightbox-inner {
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.03)),
+    rgba(4, 10, 11, 0.72);
+  border: 1px solid var(--line-strong);
+  border-radius: 26px;
+  box-shadow:
+    0 40px 120px rgba(0, 0, 0, 0.7),
+    0 0 60px color-mix(in srgb, var(--project-accent, var(--accent)), transparent 80%);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-height: 100%;
+  max-width: min(1180px, 100%);
+  overflow: hidden;
+  padding: 16px;
+  position: relative;
+  width: 100%;
+}
+
+.lightbox-close {
+  align-items: center;
+  backdrop-filter: blur(16px) saturate(1.3);
+  -webkit-backdrop-filter: blur(16px) saturate(1.3);
+  background: rgba(4, 12, 13, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.26);
+  border-radius: 999px;
+  color: #eaf8fa;
+  cursor: pointer;
+  display: inline-flex;
+  height: 40px;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+  width: 40px;
+  z-index: 5;
+}
+
+.lightbox-close:hover {
+  border-color: color-mix(in srgb, var(--project-accent), white 15%);
+  transform: rotate(90deg);
+}
+
+.lightbox-media {
+  align-items: center;
+  background: rgba(0, 0, 0, 0.42);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 18px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.lightbox-media img,
+.lightbox-media video {
+  animation: mediaFade 320ms ease;
+  display: block;
+  max-height: min(72vh, 780px);
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.lightbox-caption {
+  align-items: end;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 18px;
+  justify-content: space-between;
+  padding: 0 6px 4px;
+}
+
+.lightbox-caption span {
+  color: var(--project-accent, var(--accent));
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.lightbox-caption h3 {
+  color: var(--text);
+  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
+  line-height: 1.05;
+  margin: 8px 0 8px;
+}
+
+.lightbox-caption p {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 10px;
+  max-width: 640px;
+}
+
+.lightbox-caption .glass-button {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+}
+
+.lightbox-nav {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 12px;
+}
+
+.lightbox-nav span {
+  color: #dff7f7;
+  font-size: 0.78rem;
+  font-weight: 800;
+  min-width: 48px;
+  text-align: center;
+}
+
+.lightbox-nav button {
+  align-items: center;
+  background: rgba(4, 12, 13, 0.68);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #eaf8fa;
+  cursor: pointer;
+  display: inline-flex;
+  height: 42px;
+  justify-content: center;
+  padding: 0;
+  transition:
+    border-color 180ms ease,
+    transform 180ms ease;
+  width: 42px;
+}
+
+.lightbox-nav button:hover {
+  border-color: color-mix(in srgb, var(--project-accent), white 15%);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 1100px) {
   .hero-section,
   .capability-band {
@@ -931,6 +1178,29 @@ a {
 
   .contact-footer .glass-button {
     width: 100%;
+  }
+
+  .lightbox {
+    padding: 10px;
+  }
+
+  .lightbox-inner {
+    padding: 12px;
+  }
+
+  .lightbox-caption {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .lightbox-nav {
+    align-self: center;
+  }
+
+  .lightbox-media img,
+  .lightbox-media video {
+    max-height: 62vh;
   }
 }
 

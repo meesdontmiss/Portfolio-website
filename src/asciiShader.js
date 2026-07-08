@@ -122,6 +122,7 @@ export function createAsciiShader({
   ramp = DEFAULT_RAMP,
 } = {}) {
   const ctx = canvas.getContext("2d", { alpha: false, desynchronized: true });
+  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   const state = {
     mode,
     palette,
@@ -138,6 +139,7 @@ export function createAsciiShader({
     qualityScale: 1,
     raf: 0,
     running: false,
+    reduced: reducedMotionQuery.matches,
     hidden: document.hidden,
     lastTime: 0,
     time: 0,
@@ -204,6 +206,7 @@ export function createAsciiShader({
     canvas.style.height = `${state.height}px`;
     ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
     configureGrid();
+    repaint();
   };
 
   const adaptQuality = () => {
@@ -290,6 +293,11 @@ export function createAsciiShader({
       }
     }
 
+    if (state.reduced) {
+      state.running = false;
+      return;
+    }
+
     adaptQuality();
     state.raf = requestAnimationFrame(render);
   };
@@ -307,6 +315,24 @@ export function createAsciiShader({
     state.raf = requestAnimationFrame(render);
   };
 
+  // Paints one static frame when animation is off (reduced motion).
+  const repaint = () => {
+    if (!state.reduced || state.hidden) return;
+    state.running = true;
+    state.lastTime = 0;
+    render(performance.now());
+  };
+
+  const onReducedMotionChange = (event) => {
+    state.reduced = event.matches;
+    if (state.reduced) {
+      pause();
+      repaint();
+    } else {
+      resume();
+    }
+  };
+
   const onVisibilityChange = () => {
     state.hidden = document.hidden;
     if (state.hidden) {
@@ -321,7 +347,12 @@ export function createAsciiShader({
   resize();
   window.addEventListener("resize", resize);
   document.addEventListener("visibilitychange", onVisibilityChange);
-  resume();
+  reducedMotionQuery.addEventListener("change", onReducedMotionChange);
+  if (state.reduced) {
+    repaint();
+  } else {
+    resume();
+  }
 
   return {
     pause,
@@ -329,15 +360,18 @@ export function createAsciiShader({
     resize,
     setMode(nextMode) {
       state.mode = MODES[nextMode] ? nextMode : "signal";
+      repaint();
     },
     setPalette(nextPalette) {
       state.palette = nextPalette;
       rebuildAtlas();
+      repaint();
     },
     destroy() {
       pause();
       window.removeEventListener("resize", resize);
       document.removeEventListener("visibilitychange", onVisibilityChange);
+      reducedMotionQuery.removeEventListener("change", onReducedMotionChange);
     },
   };
 }

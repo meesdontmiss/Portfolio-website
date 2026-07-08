@@ -8,3 +8,4 @@ qa-*.png
 Thumbs.db
 
 .vercel
+.claude/
